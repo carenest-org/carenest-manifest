@@ -8,15 +8,15 @@ metadata:
     app.kubernetes.io/name: carenest
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
+    apiVersion: argoproj.io/v1alpha1
+    kind: Rollout
     name: frontend
-  minReplicas: {{ .Values.hpa.frontend.minReplicas }}
-  maxReplicas: {{ .Values.hpa.frontend.maxReplicas }}
+  minReplicas: 2
+  maxReplicas: 10
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ .Values.hpa.frontend.targetCPUPercent }}
+          averageUtilization: 70
