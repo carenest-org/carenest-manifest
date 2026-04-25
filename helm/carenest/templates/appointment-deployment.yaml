@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: appointment
   namespace: {{ .Values.namespace }}
@@ -8,14 +8,17 @@ metadata:
     app.kubernetes.io/name: carenest
 spec:
   replicas: {{ .Values.replicas.appointment }}
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: appointment
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+    blueGreen:
+      activeService: appointment-service
+      previewService: appointment-preview-service
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+      previewReplicaCount: 1
   template:
     metadata:
       labels:

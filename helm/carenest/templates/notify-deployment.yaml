@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: notify
   namespace: {{ .Values.namespace }}
@@ -8,14 +8,17 @@ metadata:
     app.kubernetes.io/name: carenest
 spec:
   replicas: {{ .Values.replicas.notify }}
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: notify
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+    blueGreen:
+      activeService: notify-service
+      previewService: notify-preview-service
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+      previewReplicaCount: 1
   template:
     metadata:
       labels:
