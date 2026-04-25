@@ -15,7 +15,7 @@ auth:
 appointment:
   image:
     repository: jayadevarun2003/carenest-appointment
-    tag: sha-80f28a0
+    tag: sha-66da49b
 pharmacy:
   image:
     repository: jayadevarun2003/carenest-pharmacy
