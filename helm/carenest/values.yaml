@@ -27,7 +27,7 @@ notify:
 frontend:
   image:
     repository: jayadevarun2003/carenest-frontend
-    tag: latest
+    tag: sha-672be2d
 # ── Infrastructure Images (not managed by CI/CD) ─────
 infraImages:
   mongo: mongo:7
