@@ -5,44 +5,36 @@
 # Global
 namespace: carenest-dev
 environment: dev
-
 # ── Docker Images (per-service for CI/CD tag updates) ─
 # Each service has its own image.repository and image.tag
 # The CD pipeline updates ONLY the tag field via yq.
 auth:
   image:
     repository: jayadevarun2003/carenest-auth
-    tag: latest
-
+    tag: ""
 appointment:
   image:
     repository: jayadevarun2003/carenest-appointment
     tag: latest
-
 pharmacy:
   image:
     repository: jayadevarun2003/carenest-pharmacy
     tag: latest
-
 notify:
   image:
     repository: jayadevarun2003/carenest-notify
     tag: latest
-
 frontend:
   image:
     repository: jayadevarun2003/carenest-frontend
     tag: latest
-
 # ── Infrastructure Images (not managed by CI/CD) ─────
 infraImages:
   mongo: mongo:7
   redis: redis:7-alpine
   haproxy: haproxytech/haproxy-alpine:2.9
   busybox: busybox:1.36
-
 imagePullPolicy: Always
-
 # ── Replicas ──────────────────────────────────────────
 replicas:
   auth: 2
@@ -51,7 +43,6 @@ replicas:
   notify: 2
   frontend: 2
   redis: 1
-
 # ── Ports ─────────────────────────────────────────────
 ports:
   auth: 3001
@@ -62,7 +53,6 @@ ports:
   mongo: 27017
   redis: 6379
   haproxy: 80
-
 # ── Gateway (Envoy Gateway) ──────────────────────────
 gateway:
   # GatewayClass name — run `kubectl get gatewayclasses` to verify
@@ -73,20 +63,17 @@ gateway:
   # Port the Gateway listens on
   port: 80
   name: carenest-gateway
-
 # ── HAProxy (in-cluster — disabled when using external EC2) ─
 haproxy:
   # Set to true ONLY if you want HAProxy inside the cluster
   # When using a separate HAProxy EC2, keep this false
   enabled: false
   serviceType: LoadBalancer
-
 # ── Worker Nodes (for HAProxy EC2 config) ─────────────
 # Replace with your actual worker node private IPs
 workerNodes:
   - ip: "172.31.42.243"
   - ip: "172.31.41.253"
-
 # ── Resources ─────────────────────────────────────────
 resources:
   auth:
@@ -145,34 +132,28 @@ resources:
     limits:
       cpu: 200m
       memory: 128Mi
-
 # ── MongoDB ───────────────────────────────────────────
 mongo:
   storageSize: 5Gi
-  storageClass: local-path  # leave empty for default
-
+  storageClass: local-path # leave empty for default
 # ── Config (non-sensitive) ────────────────────────────
 config:
   jwtExpiresIn: "7d"
   nodeEnv: "production"
-
 # ── Secrets (base64 encoded) ──────────────────────────
 secrets:
-  jwtSecret: "Y2FyZW5lc3RfcHJvZF9zZWNyZXRfY2hhbmdlX21l"  # carenest_prod_secret_change_me
-
+  jwtSecret: "Y2FyZW5lc3RfcHJvZF9zZWNyZXRfY2hhbmdlX21l" # carenest_prod_secret_change_me
 # ── HPA (Frontend only) ──────────────────────────────
 hpa:
   frontend:
     minReplicas: 2
     maxReplicas: 10
     targetCPUPercent: 70
-
 # ── Health Probes ─────────────────────────────────────
 probes:
   initialDelaySeconds: 10
   periodSeconds: 15
   timeoutSeconds: 5
   failureThreshold: 3
-
 # ── Graceful Shutdown ─────────────────────────────────
 terminationGracePeriodSeconds: 30
