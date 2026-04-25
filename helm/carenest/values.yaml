@@ -11,7 +11,7 @@ environment: dev
 auth:
   image:
     repository: jayadevarun2003/carenest-auth
-    tag: sha-25daa8c
+    tag: sha-c10de51
 appointment:
   image:
     repository: jayadevarun2003/carenest-appointment
