@@ -19,7 +19,7 @@ appointment:
 pharmacy:
   image:
     repository: jayadevarun2003/carenest-pharmacy
-    tag: sha-8927745
+    tag: sha-9532841
 notify:
   image:
     repository: jayadevarun2003/carenest-notify
