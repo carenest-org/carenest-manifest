@@ -11,22 +11,22 @@ environment: dev
 # The CD pipeline updates ONLY the tag field via yq.
 auth:
   image:
-    repository: jayadevarun2003/carenest-auth-service
+    repository: jayadevarun2003/carenest-auth
     tag: latest
 
 appointment:
   image:
-    repository: jayadevarun2003/carenest-appointment-service
+    repository: jayadevarun2003/carenest-appointment
     tag: latest
 
 pharmacy:
   image:
-    repository: jayadevarun2003/carenest-pharmacy-service
+    repository: jayadevarun2003/carenest-pharmacy
     tag: latest
 
 notify:
   image:
-    repository: jayadevarun2003/carenest-notify-service
+    repository: jayadevarun2003/carenest-notify
     tag: latest
 
 frontend:
