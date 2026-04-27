@@ -23,7 +23,7 @@ pharmacy:
 notify:
   image:
     repository: jayadevarun2003/carenest-notify
-    tag: sha-19529ac
+    tag: sha-59cf975
 frontend:
   image:
     repository: jayadevarun2003/carenest-frontend
